@@ -29,6 +29,7 @@ const ImgPicker = props => {
         });
         console.log("imageTaken", imageTaken)
         setPickedImage(imageTaken.uri);
+        props.onImageTaken(imageTaken.uri);
 
     }
     return (

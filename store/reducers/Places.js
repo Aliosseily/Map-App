@@ -11,7 +11,8 @@ export default (state = initilState, action) => {
             console.log("run");
             const newPlace = new Place(
                 new Date().toString(), // dummy unique id
-                action.placeData.title
+                action.placeData.title,
+                action.placeData.image
             )
             console.log("initilState", initilState)
             console.log("newPlace", newPlace)
