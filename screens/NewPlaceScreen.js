@@ -23,7 +23,7 @@ const NewPlaceScreen = props => {
         <ScrollView>
             <View style={styles.form}>
                 <Text style={styles.label}>Title</Text>
-                <TextInput style={styles.textInput} value={titleValue} onChangeText={titleChangeHandler} />
+                <TextInput placeholder="Add your place ..." style={styles.textInput} value={titleValue} onChangeText={titleChangeHandler} />
                 <ImagePicker/>
                 <Button title="Save Place" color={Colors.primary} onPress={savePlaceHandler} />
             </View>
