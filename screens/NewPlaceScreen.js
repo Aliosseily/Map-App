@@ -9,7 +9,9 @@ const NewPlaceScreen = props => {
         </View>
     )
 }
-
+NewPlaceScreen.navigationOptions ={
+    headerTitle:"Add Place"
+}
 const styles = StyleSheet.create({})
 
 export default NewPlaceScreen;
