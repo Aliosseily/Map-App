@@ -16,7 +16,7 @@ const PlacesListScreen = props => {
             keyExtractor={item => item.id}
             renderItem={itemData => <PlaceItem
                 onSelect={() => {
-                    props.navigaion.navigate('PlaceDetail', {
+                    props.navigation.navigate('PlaceDetail', {
                         //send params to PlaceDetailScreen
                         placeTitle: itemData.item.title,
                         placeId: itemData.item.id
