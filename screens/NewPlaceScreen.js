@@ -4,7 +4,8 @@ import { ScrollView, View, Text, Button, TextInput, StyleSheet } from 'react-nat
 import Colors from '../constants/Colors';
 import { useDispatch } from 'react-redux';
 import * as placesActions from '../store/actions/Places';
-import ImagePicker from '../components/ImagePicker'
+import ImagePicker from '../components/ImagePicker';
+import LocationPicker  from "../components/LocationPicker";
 
 
 const NewPlaceScreen = props => {
@@ -30,6 +31,7 @@ const NewPlaceScreen = props => {
                 <Text style={styles.label}>Title</Text>
                 <TextInput placeholder="Add your place ..." style={styles.textInput} value={titleValue} onChangeText={titleChangeHandler} />
                 <ImagePicker onImageTaken={imageTakenHandler}/>
+                <LocationPicker/>
                 <Button title="Save Place" color={Colors.primary} onPress={savePlaceHandler} />
             </View>
         </ScrollView>

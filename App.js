@@ -12,7 +12,6 @@ init().then(() => {
 }).catch((err) => {
   console.log("Initializing Database failed.")
   console.log(err)
-
 })
 
 const rootReducer = combineReducers({
