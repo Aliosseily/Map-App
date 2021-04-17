@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Platform, FlatList } from 'react-native';
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from '../components/UI/HeaderButton';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PlaceItem from '../components/PlaceItem';
-
-
+import * as placesAction from '../store/actions/Places'
 
 const PlacesListScreen = props => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(placesAction.getAllPlaces());
+    }, [dispatch])
     const places = useSelector(state => state.places.places) // in App.js rootReducer I define places .places inside initilState defined in places.js reducer  
     console.log("places", places)
     return (

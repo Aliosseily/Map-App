@@ -2,7 +2,8 @@
 import * as FileSystem from 'expo-file-system'
 
 export const ADD_PLACE = 'ADD_PLACE';
-import { insertPlace } from '../../helpers/db'
+export const GET_PLACES = 'GET_PLACES';
+import { insertPlace, fetchPlaces } from '../../helpers/db'
 /* like sending HTTP request Now moving a file is basically the same category of thing we're doing, 
 instead of sending a request to a server, we're moving a file, well it's not that different.*/
 export const addPlace = (title, image) => {
@@ -34,16 +35,29 @@ export const addPlace = (title, image) => {
                 from: image,
                 to: newPath
             })
-            const dbResult = await insertPlace(title, image, "Dummy Address", 15.6, 12.3);
+            const dbResult = await insertPlace(title, newPath, "Dummy Address", 15.6, 12.3);
             console.log(dbResult);
             // dispatch({ type: ADD_PLACE, placeData: { title: title, image: image } })
-            dispatch({ type: ADD_PLACE, placeData: {id:dbResult.insertId, title: title, image: newPath } })
-        } 
+            dispatch({ type: ADD_PLACE, placeData: { id: dbResult.insertId, title: title, image: newPath } })
+        }
         catch (err) {
             console.log(err);
             throw err;
         }
 
+
+    }
+}
+
+export const getAllPlaces = () => {
+    return async dispatch => {
+        try{
+            const dbAllPlacesResult = await fetchPlaces();
+            dispatch({ type: GET_PLACES, allPlaces: dbAllPlacesResult.rows._array })
+        }
+        catch(err){
+            throw err;
+        }
 
     }
 }
