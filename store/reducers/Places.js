@@ -10,7 +10,8 @@ export default (state = initilState, action) => {
         case ADD_PLACE:
             console.log("run");
             const newPlace = new Place(
-                new Date().toString(), // dummy unique id
+               // new Date().toString(), // dummy unique id
+                action.placeData.id.toString(),
                 action.placeData.title,
                 action.placeData.image
             )
