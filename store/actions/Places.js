@@ -10,15 +10,15 @@ instead of sending a request to a server, we're moving a file, well it's not tha
 export const addPlace = (title, image, location) => {
     return async dispatch => { // using Thunk
         // Google api use for converting geographic coordinates into a human-readable address.
-        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${ENV.googleApiKey}`)
-        if (!response.ok) {
-            throw new Error("Something went wrong!");
-        }
-        const resData = await response.json();
-        if (!resData.result) {
-            throw new Error("Something went wrong!");
-        }
-        const address = resData.results[0].formatted_address
+        // const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${ENV.googleApiKey}`)
+        // if (!response.ok) {
+        //     throw new Error("Something went wrong!");
+        // }
+        // const resData = await response.json();
+        // if (!resData.result) {
+        //     throw new Error("Something went wrong!");
+        // }
+        // const address = resData.results[0].formatted_address
         /* You got the cache directory which is actually the directory where the file is already stored in out
          of the box, the bundle directory which is not really a good directory for storing files your app uses
          either but you also got the document directory,
@@ -47,7 +47,8 @@ export const addPlace = (title, image, location) => {
                 to: newPath
             })
             //const dbResult = await insertPlace(title, newPath, "Dummy Address", 15.6, 12.3);
-            const dbResult = await insertPlace(title, newPath, address, location.lat, location.lng);
+            //const dbResult = await insertPlace(title, newPath, address, location.lat, location.lng);
+            const dbResult = await insertPlace(title, newPath, "Dummy Address", location.lat, location.lng);
             console.log(dbResult);
             // dispatch({ type: ADD_PLACE, placeData: { title: title, image: image } })
             //dispatch({ type: ADD_PLACE, placeData: { id: dbResult.insertId, title: title, image: newPath } })
@@ -57,7 +58,7 @@ export const addPlace = (title, image, location) => {
                     id: dbResult.insertId,
                     title: title,
                     image: newPath,
-                    address: address,
+                    address: "Dummy Address",
                     coords: {
                         lat: location.lat,
                         lng: location.lng
