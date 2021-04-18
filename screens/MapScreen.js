@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-
+import Colors from '../constants/Colors';
 const MapScreen = props => {
     const [selectedLocation, setSelectedLocation] = useState();
     // Delta set the zoom value because this describes how much space around you can see around latitude and longitude
@@ -14,10 +14,22 @@ const MapScreen = props => {
     const setLocationHandler = event => {
         console.log(event.nativeEvent)
         setSelectedLocation({
-            lat:event.nativeEvent.coordinate.latitude,
-            lng:event.nativeEvent.coordinate.longitude
+            lat: event.nativeEvent.coordinate.latitude,
+            lng: event.nativeEvent.coordinate.longitude
         })
     }
+
+    const savePickedLocationHandler = useCallback(() => {
+        if (!selectedLocation) {
+            return;
+        }
+        props.navigation.navigate("NewPlace", { pickedLoaction: selectedLocation });
+    }, [selectedLocation]);
+
+    useEffect(() => {
+        props.navigation.setParams({ saveLocation: savePickedLocationHandler })
+    }, [savePickedLocationHandler])
+
     let markerCoordinates;
     if (selectedLocation) {
         markerCoordinates = {
@@ -27,15 +39,32 @@ const MapScreen = props => {
     }
     return (
         /*region tells the map where it should be focused when it loads*/
-        <MapView style={styles.map} region={mapRegion} onPress={setLocationHandler} > 
+        <MapView style={styles.map} region={mapRegion} onPress={setLocationHandler} >
             { markerCoordinates && <Marker title="Picked location" coordinate={markerCoordinates}></Marker>}
         </MapView>
     )
 }
 
+MapScreen.navigationOptions = navData => {
+    const saveFn = navData.navigation.getParam('saveLocation')
+    return {
+        headerRight: () =>
+            <TouchableOpacity style={styles.headerButton} onPress={saveFn}>
+                <Text style={styles.headerButtontext}>Save</Text>
+            </TouchableOpacity>
+    }
+}
+
 const styles = StyleSheet.create({
     map: {
         flex: 1
+    },
+    headerButton: {
+        marginHorizontal: 20
+    },
+    headerButtontext: {
+        fontSize: 16,
+        color: Platform.OS === 'android' ? "white" : Colors.primary
     }
 })
 

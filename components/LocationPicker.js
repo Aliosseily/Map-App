@@ -5,19 +5,30 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import MapPreview from '../components/MapPreview';
 
-const verifyPermissions = async () => {
 
-    const result = await Permissions.askAsync(Permissions.LOCATION)// ask permission to use location
-    if (result.status !== 'granted') {
-        Alert.alert('Permision denied!', 'You nedd to grant location permission to use this app', [{ text: 'OKAY' }])
-        return false;
-    }
-    return true;
-}
 
 const LocationPicker = props => {
     const [pickedLocation, setPickedLocation] = useState();
     const [isFetching, setIsFetching] = useState();
+
+    const mapPickedLocation = props.navigation.getParam('pickedLoaction'); // param sent from MapScreen.js
+
+    useEffect(() => {
+        if (mapPickedLocation) {
+            setPickedLocation(mapPickedLocation);
+        }
+    }, [mapPickedLocation])
+
+    const verifyPermissions = async () => {
+
+        const result = await Permissions.askAsync(Permissions.LOCATION)// ask permission to use location
+        if (result.status !== 'granted') {
+            Alert.alert('Permision denied!', 'You nedd to grant location permission to use this app', [{ text: 'OKAY' }])
+            return false;
+        }
+        return true;
+    }
+
     const getrLocationHandler = async () => {
         const hasPermission = await verifyPermissions(false);
         if (!hasPermission) {
