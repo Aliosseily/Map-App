@@ -38,6 +38,8 @@ const LocationPicker = props => {
 
     }
     const pickOnMapHandler = () => {
+        // navigation prop is only availbale on component wich are directly loaded as screens whicj=h the LocationPicker not 
+        // so go to NewPlaceScreen which is loaded through nvigator and send prop.navigation to this view
         props.navigation.navigate('Map');
     }
     return (
