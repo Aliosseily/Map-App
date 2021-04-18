@@ -9,7 +9,7 @@ import * as Permissions from 'expo-permissions';
 const ImgPicker = props => {
     const [pickedImage, setPickedImage] = useState();
     const verifyPermissions = async () => {
-        const result = await Permissions.askAsync(Permissions.CAMERA_ROLL)// ask permission to use camera /Permissions.CAMERA_ROLL permission to use gallery
+        const result = await Permissions.askAsync(Permissions.CAMERA_ROLL,Permissions.CAMERA)// ask permission to use camera /Permissions.CAMERA_ROLL permission to use gallery
         if (result.status !== 'granted') {
             Alert.alert('Permision denied!', 'You nedd to grant camera permission to use this app', [{ text: 'OKAY' }])
             return false;
