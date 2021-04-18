@@ -31,7 +31,7 @@ const NewPlaceScreen = props => {
                 <Text style={styles.label}>Title</Text>
                 <TextInput placeholder="Add your place ..." style={styles.textInput} value={titleValue} onChangeText={titleChangeHandler} />
                 <ImagePicker onImageTaken={imageTakenHandler}/>
-                <LocationPicker/>
+                <LocationPicker navigation={props.navigation}/>
                 <Button title="Save Place" color={Colors.primary} onPress={savePlaceHandler} />
             </View>
         </ScrollView>
